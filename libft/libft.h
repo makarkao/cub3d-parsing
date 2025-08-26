@@ -6,7 +6,7 @@
 /*   By: makarkao <makarkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 19:10:12 by makarkao          #+#    #+#             */
-/*   Updated: 2025/08/25 13:47:21 by makarkao         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:34:40 by makarkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,7 @@ void		ft_freemap(char **map);
 char		**ft_realloc(char **map, char *line, ssize_t k);
 void		ft_exitmsg(int n);
 char		**ft_split(char *s, char c);
+void		free_strs(char **strs);
+int			ft_strcmp(const char *s1, const char *s2);
 
 #endif

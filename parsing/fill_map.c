@@ -13,7 +13,7 @@ void fill_map(t_game *game, char *line)
             map_width = line_len;
         if(line[0] != '1' && line[0] != ' ')
             exit((free(line), printf("ERROR\n"), 1));
-        addback_line(game, maplines_list, line);
-        line = get_next_line(fd, map);
+        // addback_line(game, maplines_list, line);
+        // line = get_next_line(fd, map);
     }
 }

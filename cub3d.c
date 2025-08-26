@@ -49,13 +49,14 @@ void init_player(t_player *player)
 }
 
 
-int main()
+int main(int ac, char **av)
 {
     t_game m;
     t_image image;
     t_player player;
     t_ray ray;
 
+    parsing(&m, av[1]);
     //---------------------------------------------------------------
 
     // t_map map = {.map = 
@@ -87,54 +88,54 @@ int main()
 
     //---------------------------------------------------------------
 
-    m.mlx = mlx_init();
-    m.win = mlx_new_window(m.mlx, 1920, 1080, "cub3d");
-    m.image = &image;
-    m.player = &player;
-    // m.map = &map;
-    m.ray = &ray;
+    // m.mlx = mlx_init();
+    // m.win = mlx_new_window(m.mlx, 1920, 1080, "cub3d");
+    // m.image = &image;
+    // m.player = &player;
+    // // m.map = &map;
+    // m.ray = &ray;
 
-    //---------------------------------------------------------------
+    // //---------------------------------------------------------------
 
-    image.image_width =  1920;
-    image.image_height = 1080;
-    image.image_p = mlx_new_image(m.mlx, image.image_width, image.image_height);
-    image.image_s = (unsigned char *)mlx_get_data_addr(image.image_p, &image.bpp, &image.size_len, &image.endian);
+    // image.image_width =  1920;
+    // image.image_height = 1080;
+    // image.image_p = mlx_new_image(m.mlx, image.image_width, image.image_height);
+    // image.image_s = (unsigned char *)mlx_get_data_addr(image.image_p, &image.bpp, &image.size_len, &image.endian);
 
-    printf("size_len == %d\n", image.size_len);
-    printf("bpp == %d\n", image.bpp);
-    printf("endian == %d\n", image.endian);
+    // printf("size_len == %d\n", image.size_len);
+    // printf("bpp == %d\n", image.bpp);
+    // printf("endian == %d\n", image.endian);
 
-    //---------------------------------------------------------------
+    // //---------------------------------------------------------------
 
-    init_player(m.player);
+    // init_player(m.player);
 
-    //---------------------------------------------------------------
+    // //---------------------------------------------------------------
 
-    m.ray = malloc(sizeof(t_ray) * image.image_width);
+    // m.ray = malloc(sizeof(t_ray) * image.image_width);
 
-    //---------------------------------------------------------------
+    // //---------------------------------------------------------------
 
-    init_textures(&m);
+    // init_textures(&m);
 
-    //---------------------------------------------------------------
+    // //---------------------------------------------------------------
 
-    m.sprites_count = 0;
-    m.sprites = NULL;
-    fill_sprites_list(&m);
+    // m.sprites_count = 0;
+    // m.sprites = NULL;
+    // fill_sprites_list(&m);
     
-    //---------------------------------------------------------------
+    // //---------------------------------------------------------------
 
 
-	mlx_mouse_hide(m.mlx, m.win);
-    mlx_hook(m.win, 17, 0, handle_close, &m);
-    mlx_hook(m.win, 2, 1L<<0, key_press, &m);
-    mlx_hook(m.win, 3, 1L<<1, key_release, &m);
-    mlx_loop_hook(m.mlx, draw_in_screen, &m);
-	// mlx_set_cursor_mode(m.mlx, 0x00034003);
-	mlx_hook(m.win, 6, 1L<<6, cursor_func, &m);
+	// mlx_mouse_hide(m.mlx, m.win);
+    // mlx_hook(m.win, 17, 0, handle_close, &m);
+    // mlx_hook(m.win, 2, 1L<<0, key_press, &m);
+    // mlx_hook(m.win, 3, 1L<<1, key_release, &m);
+    // mlx_loop_hook(m.mlx, draw_in_screen, &m);
+	// // mlx_set_cursor_mode(m.mlx, 0x00034003);
+	// mlx_hook(m.win, 6, 1L<<6, cursor_func, &m);
 
-    //---------------------------------------------------------------
+    // //---------------------------------------------------------------
 
-    mlx_loop(m.mlx);
+    // mlx_loop(m.mlx);
 }

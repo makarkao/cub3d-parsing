@@ -6,7 +6,7 @@
 /*   By: makarkao <makarkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:20:19 by makarkao          #+#    #+#             */
-/*   Updated: 2025/08/26 03:17:04 by makarkao         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:56:39 by makarkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void file_to_image(t_game *game, char **sp_line, char *line, t_texture *tex)
 }
 
 
-int fill_texture(t_game *game, char **sp_line, char *line, int flag)
+void fill_texture(t_game *game, char **sp_line, char *line, int flag)
 {
 	if(flag == EA)
 		file_to_image(game, sp_line, line, &game->cub->tex_ea);
@@ -35,15 +35,14 @@ int fill_texture(t_game *game, char **sp_line, char *line, int flag)
 		file_to_image(game, sp_line, line, &game->cub->tex_no);
 	else if(flag == EA)
 		file_to_image(game, sp_line, line, &game->cub->tex_ea);
-	else if (flag == F)
-		extract_color(game, sp_line, line, &game->cub->color_f);
-	else
-		extract_color(game, sp_line, line, &game->cub->color_f);
-	
+	// else if (flag == F)
+	// 	extract_color(game, sp_line, line, &game->cub->color_f);
+	// else
+	// 	extract_color(game, sp_line, line, &game->cub->color_f);
 }
 
 
-int fill_texture_tt(t_game *game, char **sp_line, char *line, int flag)
+void fill_texture_tt(t_game *game, char **sp_line, char *line, int flag)
 {
 	if(game->cub->state_mask & flag)
 		exit((printf("ERROR\n"), 1));
@@ -80,40 +79,41 @@ int ft_check(char *str)
 }
 
 
-char	**read_map(t_game *game, char *filename)
+char**	read_map(t_game *game, char *filename)
 {
 	int		fd;
 	char	*line = NULL;
 	char	**map;
 	char	**sp_line = NULL;
-	// ssize_t	len;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-	{
-		perror("Error opening file");
-		return (NULL);
-	}
+		return ((perror("Error opening file"), NULL));
 	map = NULL;
-	// len = 0;
 	line = get_next_line(fd, map);
-	while (line && !line[0])
+	while (line)
 	{
 		sp_line = ft_split(line, ' ');
 		if(!sp_line)
-			returtn(printf("Error\n"), NULL);
-		if(!sp_line[0] || !sp_line[1] || sp_line[2])
-			returtn(printf("Error\n"), NULL);
-		if(ft_check(sp_line[0]))
-			check_line(game, sp_line, line);
-		else
-			break;
-		free(line);
-		free_strs(sp_line);
+			return(printf("Error\n"), NULL);
+		if(sp_line[0] && (!sp_line[1] || (sp_line[1] && sp_line[2])))
+			return(printf("Error\n"), NULL);
+		if(sp_line[0][0])
+		{		
+			if(ft_check(sp_line[0]))
+				check_line(game, sp_line, line);
+			else
+				break;
+		}
+		(free(line), line = NULL);
+		(free_strs(sp_line), sp_line = NULL);
 		line = get_next_line(fd, map);
 	}
-	free_strs(sp_line);
-	if(game->cub->state_mask != NO | SO | EA | WE | F | C)
-		exit((free(line), free_strs(sp_line), printf("ERROR\n"), 1));
-	fill_map(game);
+	if(sp_line)
+		(free_strs(sp_line), sp_line = NULL);
+	if(game->cub->state_mask != (NO | SO | EA | WE | F | C))
+		exit((free(line), printf("ERROR\n"), 1));
+	// fill_map(game);
+	printf("nadi\n");
+	return (NULL);
 }

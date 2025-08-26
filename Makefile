@@ -1,4 +1,5 @@
-SRCS = cub3d.c draw.c move_player.c rays.c sprites.c player_key_hooks.c
+SRCS = cub3d.c ./parsing/parsing.c ./parsing/read_map.c
+# SRCS = cub3d.c draw.c move_player.c rays.c sprites.c player_key_hooks.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -7,20 +8,21 @@ NAME = cub3d
 CC = cc
 RM = rm -f
 # CFLAGS = -Wall -Wextra -Werror -g
-CFLAGS = -Wall -Wextra -g
+CFLAGS =  -g
 MFLAGS = -L ./mlx_linux -lmlx -lXext -lX11 -lm
+# MFLAGS = 
 CMAKE = make -C
 
-LIBFTDIR = libft/
+# LIBFTDIR = libft/
 
 all: ${NAME}
 
 .c.o:
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+	${CC} ${CFLAGS} -I./libft -c $< -o ${<:.c=.o}
 
 ${NAME}: ${OBJS}
-	${CMAKE} mlx_linux/
-	${CC} ${CFLAGS} ${OBJS} ${MFLAGS} -o ${NAME}
+	# ${CMAKE} mlx_linux/
+	${CC} ${CFLAGS} ${OBJS} ${MFLAGS} -o ${NAME} -L ./libft -lft
 
 clean:
 	${RM} ${OBJS}

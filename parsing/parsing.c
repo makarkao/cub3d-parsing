@@ -15,6 +15,6 @@ void init_game_cub(t_game *game)
 void parsing(t_game *game, char *fileName)
 {
     init_game_cub(game);
-    read_map(fileName);
-    check_map(game);
+    read_map(game, fileName);
+    // check_map(game);
 }
