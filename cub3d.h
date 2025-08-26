@@ -27,6 +27,13 @@
 #define RIGHT_KEY   100
 #define LEFT_KEY    97
 
+#define EA (1 < 0)
+#define WE (1 < 1)
+#define NO (1 < 2)
+#define SO (1 < 3)
+#define F (1 < 4)
+#define C (1 < 5)
+
 #define R_RIGHT_KEY 65363
 #define R_LEFT_KEY  65361
 

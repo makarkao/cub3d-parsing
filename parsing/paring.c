@@ -16,4 +16,5 @@ void parsing(t_game *game, char *fileName)
 {
     init_game_cub(game);
     read_map(fileName);
+    check_map(game);
 }
