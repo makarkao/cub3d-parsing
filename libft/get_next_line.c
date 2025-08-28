@@ -6,20 +6,20 @@
 /*   By: makarkao <makarkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 15:38:36 by makarkao          #+#    #+#             */
-/*   Updated: 2025/02/03 23:49:56 by makarkao         ###   ########.fr       */
+/*   Updated: 2025/08/26 17:38:16 by makarkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_get_nxt_line_prc(t_gnlsv *v, t_gnlnsv *x, int fd, char **map)
+char	*ft_get_nxt_line_prc(t_gnlsv *v, t_gnlnsv *x, int fd)
 {
 	while (v->s[0] != 0)
 	{
 		x->j += ft_strchr(v->s, &(v->k), '\n');
 		x->l = ft_sub(x->l, v->s, &(v->k), (x->j - v->k));
 		if (!x->l)
-			exit((free(v->s), ft_freemap(map), ft_exitmsg(0), 1));
+			exit((free(v->s), ft_exitmsg(0), 1));
 		if (v->s[v->k] == '\n')
 		{
 			(v->k)++;
@@ -41,7 +41,7 @@ char	*ft_get_nxt_line_prc(t_gnlsv *v, t_gnlnsv *x, int fd, char **map)
 	return (x->l);
 }
 
-char	*get_next_line(int fd, char **map)
+char	*get_next_line(int fd)
 {
 	static t_gnlsv	v;
 	t_gnlnsv		x;
@@ -55,14 +55,14 @@ char	*get_next_line(int fd, char **map)
 		{
 			v.s = malloc(sizeof(char) * (((size_t)BUFFER_SIZE) + 1));
 			if (!v.s)
-				exit((ft_freemap(map), ft_exitmsg(0), 1));
+				exit((ft_exitmsg(0), 1));
 		}
 		x.i = read(fd, v.s, BUFFER_SIZE);
 		if (x.i == -1)
 			return (free(v.s), v.s = NULL, NULL);
 		(1) && (v.s[x.i] = '\0', v.k = 0);
 	}
-	return (ft_get_nxt_line_prc(&v, &x, fd, map));
+	return (ft_get_nxt_line_prc(&v, &x, fd));
 }
 
 // int	main(void)

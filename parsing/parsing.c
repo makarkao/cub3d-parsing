@@ -14,7 +14,10 @@ void init_game_cub(t_game *game)
 
 void parsing(t_game *game, char *fileName)
 {
+    t_cub_lines *cub_lines_list;
+
+    cub_lines_list = read_cube_file(game, fileName);
     init_game_cub(game);
-    read_map(game, fileName);
+    read_map(game, cub_lines_list);
     // check_map(game);
 }

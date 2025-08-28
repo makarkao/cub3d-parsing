@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <math.h>
+#include <errno.h>
 #include <fcntl.h>
 #include "./libft/libft.h"
 #include <sys/time.h>
@@ -36,6 +37,12 @@
 
 #define R_RIGHT_KEY 65363
 #define R_LEFT_KEY  65361
+
+typedef struct s_cub_lines
+{
+    char                *line;
+    struct s_cub_lines  *next;
+}   t_cub_lines;
 
 
 typedef struct s_sprites
@@ -184,6 +191,8 @@ typedef struct s_game
     t_sprites_list  *sprites;
     int             sprites_count;
 }   t_game;
+
+
 
 
 int    draw_in_screen(t_game *m);

@@ -6,7 +6,7 @@
 /*   By: makarkao <makarkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 19:10:12 by makarkao          #+#    #+#             */
-/*   Updated: 2025/08/26 15:34:40 by makarkao         ###   ########.fr       */
+/*   Updated: 2025/08/26 17:38:32 by makarkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int			ft_printf(const char *str, ...);
 int			ft_putchar(char c);
 int			ft_putstr(char *s);
 int			ft_putnbr(int n);
-char		*get_next_line(int fd, char **map);
-char		*ft_get_nxt_line_prc(t_gnlsv *v, t_gnlnsv *x, int fd, char **map);
+char		*get_next_line(int fd);
+char		*ft_get_nxt_line_prc(t_gnlsv *v, t_gnlnsv *x, int fd);
 char		*ft_strcpy(char *str, char *s);
 size_t		ft_strlen(char *str);
 size_t		ft_strchr(char *str, ssize_t *j, char c);
