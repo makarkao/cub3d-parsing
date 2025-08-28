@@ -6,7 +6,7 @@
 /*   By: makarkao <makarkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:20:19 by makarkao          #+#    #+#             */
-/*   Updated: 2025/08/28 16:34:11 by makarkao         ###   ########.fr       */
+/*   Updated: 2025/08/28 18:37:38 by makarkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void fill_texture(t_game *game, char **sp_line, int flag)
 
 void fill_texture_tt(t_game *game, char **sp_line, int flag)
 {
+	if(sp_line[2])
+		exit((printf("ERROR\n"), 1));
 	if (game->cub->state_mask & flag)
 		exit((printf("ERROR\n"), 1));
 	else
@@ -49,16 +51,18 @@ void extract_color(t_game *game, char **sp_line, int flag)
 {
 	int i;
 	int j;
-	int comma_flag;
-	int number;
-	int count;
 	int *rgb;
+	int number;
+	int comma_flag;
+	int count_comma;
+	// int count_digits;
 
 	i = 1;
-	count = 0;
 	number = 0;
-	rgb = (int[3]){-1, -1, -1};
 	comma_flag = 1;
+	count_comma = 0;
+	// count_digits = 0;
+	rgb = (int[3]){-1, -1, -1};
 	while (sp_line[i])
 	{
 		j = 0;
@@ -66,6 +70,9 @@ void extract_color(t_game *game, char **sp_line, int flag)
 		{
 			if (check_numeric(sp_line[i][j]))
 			{
+				// count_digits++;
+				// if(count_digits > 3)
+				// 	exit((printf("ERROR\n"), 1));
 				number += (sp_line[i][j] - 48);
 				if (number > 255)
 					exit((printf("ERROR\n"), 1));
@@ -74,18 +81,22 @@ void extract_color(t_game *game, char **sp_line, int flag)
 			}
 			else if (sp_line[i][j] == ',' && !comma_flag)
 			{
-				count++;
-				if (count > 2)
+				rgb[count_comma++] = number;
+				if (count_comma > 2)
 					exit((printf("ERROR\n"), 1));
 				comma_flag = 1;
+				// count_digits = 0;
 			}
 			else
 				exit((printf("ERROR\n"), 1));
-			rgb[i - 1] = number;
 			j++;
 		}
 		i++;
 	}
+	if(count_comma == 2)
+		rgb[count_comma] = number;
+	else
+		exit((printf("ERROR\n"), 1));
 	if(flag == F)
 		game->cub->color_f = (t_rgb){rgb[0], rgb[1], rgb[2]};
 	else
@@ -124,7 +135,7 @@ char **read_map(t_game *game, t_cub_lines *cub_lines_list)
 		sp_line = ft_split(cub_lines_list->line, ' ');
 		if (!sp_line)
 			return (printf("Error\n"), NULL);
-		if (sp_line[0] && (!sp_line[1] || (sp_line[1] && sp_line[2])))
+		if (sp_line[0] && !sp_line[1])
 			return (printf("Error\n"), NULL);
 		if (sp_line[0][0])
 		{
