@@ -6,7 +6,7 @@
 /*   By: makarkao <makarkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:20:19 by makarkao          #+#    #+#             */
-/*   Updated: 2025/08/28 19:55:52 by makarkao         ###   ########.fr       */
+/*   Updated: 2025/08/28 20:41:30 by makarkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ char **read_map(t_game *game, t_cub_lines *cub_lines_list)
 {
 	char **sp_line = NULL;
 	char *line;
+	char ** map;
 
 	while (cub_lines_list)
 	{
@@ -145,7 +146,7 @@ char **read_map(t_game *game, t_cub_lines *cub_lines_list)
 		(free_strs(sp_line), sp_line = NULL);
 	if (game->cub->state_mask != (NO | SO | EA | WE | F | C))
 		exit((printf("ERROR\n"), 1));
-	fill_map(game, cub_lines_list);
-	printf("nadi\n");
+	game->cub->map = fill_map(game, cub_lines_list);
+	// printf("nadi\n");
 	return (NULL);
 }
