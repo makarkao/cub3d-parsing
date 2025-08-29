@@ -1,4 +1,18 @@
 #include "../cub3d.h"
+
+void free_lines_list(t_cub_lines *cub_lines)
+{
+    t_cub_lines *tmp;
+
+    while(cub_lines)
+    {
+        tmp = cub_lines->next;
+        free(cub_lines->line);
+        free(cub_lines);
+        cub_lines = tmp;
+    }
+}
+
 t_cub_lines *create_line_node(char *line)
 {
     t_cub_lines *line_node = malloc(sizeof(t_cub_lines));

@@ -19,5 +19,5 @@ void parsing(t_game *game, char *fileName)
     cub_lines_list = read_cube_file(game, fileName);
     init_game_cub(game);
     read_map(game, cub_lines_list);
-    // check_map(game);
+    check_map(game);
 }

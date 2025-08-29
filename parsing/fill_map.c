@@ -9,26 +9,28 @@ void extract_width_height(t_cub_lines *cub_lines_list, int *m_w, int *m_h)
     {
         (*m_h)++;
         line = cub_lines_list->line;
-        line_len = ft_strlen(line);
+        line_len = ft_strlennl(line);
         if(*m_w < line_len)
             *m_w = line_len;
         cub_lines_list = cub_lines_list->next;
     }
 }
 
-
 char *add_spaces_to_len(char *str, int len)
 {
     int i;
     char *ret_str;
 
-    i = -1;
+    i = 0;
     ret_str = malloc(sizeof(char)  * (len + 1));
     if(!ret_str)
         return (NULL);
-    while(str[++i])
+    while(str[i] && str[i] != '\n')
+    {
         ret_str[i] = str[i];
-    while(i < len);
+        i++;
+    }
+    while(i < len)
         ret_str[i++] = ' ';
     ret_str[i] = '\0';
     return (ret_str);

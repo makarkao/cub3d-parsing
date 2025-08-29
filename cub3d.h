@@ -195,23 +195,25 @@ typedef struct s_game
 
 
 
-int    draw_in_screen(t_game *m);
-int     player_mv(t_game *m);
-void    calculate_dda(t_game *game, t_ray *ray);
-void    draw_line(t_map *map, t_image *image, int x0, int y0, int x1, int y1);
-void    fill_rays_list(t_game *game);
-void    draw_rays(t_game *game);
-void    draw_to_projection_plan(t_game *game);
-void    set_color(t_image *image, int x, int y, unsigned int color);
-void    fill_sprites_list(t_game *game);
-void    draw_sprites(t_game *game);
+int         draw_in_screen(t_game *m);
+int         player_mv(t_game *m);
+void        calculate_dda(t_game *game, t_ray *ray);
+void        draw_line(t_map *map, t_image *image, int x0, int y0, int x1, int y1);
+void        fill_rays_list(t_game *game);
+void        draw_rays(t_game *game);
+void        draw_to_projection_plan(t_game *game);
+void        set_color(t_image *image, int x, int y, unsigned int color);
+void        fill_sprites_list(t_game *game);
+void        draw_sprites(t_game *game);
 
-int     key_press(int key, t_game *m);
-int     key_release(int key, t_game *m);
-int     handle_close(t_game *m);
-int     cursor_func(int xpos, int ypos, t_game *game);
+int         key_press(int key, t_game *m);
+int         key_release(int key, t_game *m);
+int         handle_close(t_game *m);
+int         cursor_func(int xpos, int ypos, t_game *game);
 
-void    parsing(t_game *game, char *fileName);
-char**    read_map(t_game *game, char *filename);
+void        parsing(t_game *game, char *fileName);
+t_cub_lines *read_cube_file(t_game *game, char *filename);
+void        read_map(t_game *game, t_cub_lines *cub_lines_list);
+char        **fill_map(t_game *game, t_cub_lines *cub_lines_list);
 
 #endif

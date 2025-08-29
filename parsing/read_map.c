@@ -6,7 +6,7 @@
 /*   By: makarkao <makarkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:20:19 by makarkao          #+#    #+#             */
-/*   Updated: 2025/08/28 20:41:30 by makarkao         ###   ########.fr       */
+/*   Updated: 2025/08/29 09:53:38 by makarkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ void fill_texture_tt(t_game *game, char **sp_line, int flag)
 	}
 }
 
+int check_numeric(char c)
+{
+    return (c >= '0' && c <= '9');
+}
+
 void extract_color(t_game *game, char **sp_line, int flag)
 {
 	int i;
@@ -74,10 +79,12 @@ void extract_color(t_game *game, char **sp_line, int flag)
 				if (comma_flag)
 					comma_flag = 0;
 			}
-			else if ((sp_line[i][j] == ',' && !comma_flag) ||  (!sp_line[i + 1] && !sp_line[i][j + 1]))
+			else if ((sp_line[i][j] == ',' && !comma_flag) ||  (!sp_line[i + 1]
+				&& !sp_line[i][j + 1]))
 			{
 				rgb[count_comma++] = number;
-				if (count_comma > 2 || (count_comma >= 2 && (sp_line[i] || sp_line[i][j])))
+				if (count_comma > 2 || (count_comma >= 2 && (sp_line[i][j + 1]
+					|| sp_line[i + 1])))
 					exit((printf("ERROR 2\n"), 1));
 				comma_flag = 1;
 			}
@@ -87,10 +94,6 @@ void extract_color(t_game *game, char **sp_line, int flag)
 		}
 		i++;
 	}
-	if(count_comma == 2)
-		rgb[count_comma] = number;
-	else
-		exit((printf("ERROR 4\n"), 1));
 	if(flag == F)
 		game->cub->color_f = (t_rgb){rgb[0], rgb[1], rgb[2]};
 	else
@@ -108,9 +111,9 @@ void check_line(t_game *game, char **sp_line, char *line)
 	else if (!ft_strcmp(sp_line[0], "WE"))
 		fill_texture_tt(game, sp_line, WE);
 	else if (!ft_strcmp(sp_line[0], "C"))
-		extract_color(game, line, C);
+		extract_color(game, sp_line, C);
 	else
-		extract_color(game, line, F);
+		extract_color(game, sp_line, F);
 }
 
 int ft_check(char *str)
@@ -118,7 +121,7 @@ int ft_check(char *str)
 	return (!ft_strcmp(str, "NO") || !ft_strcmp(str, "SO") || !ft_strcmp(str, "WE") || !ft_strcmp(str, "EA") || !ft_strcmp(str, "F") || !ft_strcmp(str, "C"));
 }
 
-char **read_map(t_game *game, t_cub_lines *cub_lines_list)
+void read_map(t_game *game, t_cub_lines *cub_lines_list)
 {
 	char **sp_line = NULL;
 	char *line;
@@ -129,9 +132,9 @@ char **read_map(t_game *game, t_cub_lines *cub_lines_list)
 		line = cub_lines_list->line;
 		sp_line = ft_split(cub_lines_list->line, ' ');
 		if (!sp_line)
-			return (printf("Error\n"), NULL);
+			return (printf("Error\n"), (void)0);
 		if (sp_line[0] && !sp_line[1])
-			return (printf("Error\n"), NULL);
+			return (printf("Error\n"), (void)0);
 		if (sp_line[0][0])
 		{
 			if (ft_check(sp_line[0]))
@@ -147,6 +150,4 @@ char **read_map(t_game *game, t_cub_lines *cub_lines_list)
 	if (game->cub->state_mask != (NO | SO | EA | WE | F | C))
 		exit((printf("ERROR\n"), 1));
 	game->cub->map = fill_map(game, cub_lines_list);
-	// printf("nadi\n");
-	return (NULL);
 }

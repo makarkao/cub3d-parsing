@@ -1,4 +1,4 @@
-SRCS = cub3d.c ./parsing/parsing.c ./parsing/read_map.c
+SRCS = cub3d.c ./parsing/parsing.c ./parsing/read_map.c ./parsing/fill_map.c ./parsing/read_cube_file.c
 # SRCS = cub3d.c draw.c move_player.c rays.c sprites.c player_key_hooks.c
 
 OBJS = ${SRCS:.c=.o}
